@@ -1,0 +1,21 @@
+.banner{
+  position: relative;
+  max-width: 1170px;
+  margin: auto;
+
+  &_content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    width: 380px;
+    transform: translate(-50%, -50%);
+    p, h1{
+      color: #FFFFFF;
+    }
+    p{
+      text-align: center;
+      margin: 21px 0 32px 0;
+    }
+  }
+}

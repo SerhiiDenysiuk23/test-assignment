@@ -1,0 +1,39 @@
+.users{
+  margin-top: 140px;
+  text-align: center;
+  .user-grid {
+    margin: 50px 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 29px;
+    grid-row-gap: 29px;
+  }
+}
+
+.card{
+  background: #FFFFFF;
+  padding: 20px;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  &_photo{
+    width: 70px;
+    height: 70px;
+    background: red;
+    display: inline-block;
+    border-radius: 50%;
+  }
+  *{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 26px;
+  }
+
+  &_name{
+    margin: 20px 0;
+  }
+}

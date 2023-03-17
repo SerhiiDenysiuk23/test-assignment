@@ -1,0 +1,43 @@
+.form-section{
+  margin-top: 140px;
+  margin-bottom: 100px;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 360px;
+  margin: auto;
+  &_text{
+    margin-top: 50px;
+    display: block;
+    width: 100%;
+    height: 54px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+  }
+
+  &_radio-group{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 43px;
+    span{
+      margin-bottom: 14px;
+    }
+  }
+
+  &_radio{
+    margin-right: 10px;
+  }
+
+  &_file{
+    margin: 50px 0;
+    border: 1px solid #D0CFCF;
+  }
+}

@@ -81,7 +81,27 @@ h1{
   }
 }
 
+.preload{
+  height: 48px;
+  width: 48px;
+  margin: 50px auto;
+  img{
+    height: 100%;
+    width: 100%;
+    animation: rotate 500ms infinite linear;
+  }
+}
+
 @import "header";
 @import "banner";
 @import "users";
 @import "form";
+
+@keyframes rotate {
+  0%{
+    transform: rotate(0);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}

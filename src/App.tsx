@@ -1,9 +1,9 @@
 import React, {lazy, useState, Suspense} from 'react';
 import Header from "./components/Header";
 import FormSection from "./components/FormSection";
+import Banner from "./components/Banner";
+import Users from "./components/Users";
 
-const Banner = lazy(() => import ("./components/Banner"))
-const Users = lazy(() => import ("./components/Users"))
 
 function App() {
     const [queryPick, setQueryPick] = useState<boolean>(false)
@@ -12,10 +12,8 @@ function App() {
     return (
         <div className="App">
             <Header/>
-            <Suspense fallback={<div className={"preload"}><img src="./preloader.png" alt="loading..."/></div>}>
-                <Banner/>
-                <Users pick={queryPick}/>
-            </Suspense>
+            <Banner/>
+            <Users pick={queryPick}/>
             <FormSection pickFunc={handlePick}/>
         </div>
     );

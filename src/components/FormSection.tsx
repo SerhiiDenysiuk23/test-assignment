@@ -44,6 +44,42 @@ const FormSection = () => {
 
     const [positionList, setPositionList] = useState<{ id: number, name: string }[]>([])
 
+    const validateForm = () => {
+        setFails({
+            position_id: "",
+            name: name.length < 2
+                ? 'The name must be at least 2 characters.'
+                : name.length > 60
+                    ? 'The name must not exceed 60 characters.'
+                    : '',
+            email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+                ? ''
+                : 'The email must be a valid email address.',
+            phone: /^[\+]{0,1}380([0-9]{9})$/.test(phone)
+                ? ''
+                : 'The phone number must be a valid.',
+            photo: photo && !photo.type.startsWith('image/')
+                ? 'Image is invalid'
+                : photo && photo.size > 5 * 1024 * 1024
+                    ? 'The photo may not be greater than 5 Mbytes.'
+                    : ''
+        });
+    };
+
+    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => setName(event.target.value);
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value);
+    const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => setPhone(event.target.value);
+    const handlePositionChange = (event: React.ChangeEvent<HTMLInputElement>) => setPositionId(event.target.value);
+    const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            setPhoto(event.target.files[0]);
+        }
+    };
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        validateForm()
+    };
+
     useEffect(() => {
         const positionResp = getQuery("positions")
         const tokenResp = getQuery("token")
@@ -56,37 +92,6 @@ const FormSection = () => {
         })
     }, [])
 
-    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => setName(event.target.value);
-    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value);
-    const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => setPhone(event.target.value);
-    const handlePositionChange = (event: React.ChangeEvent<HTMLInputElement>) => setPositionId(event.target.value);
-    const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files.length > 0) {
-            setPhoto(event.target.files[0]);
-        }
-    };
-
-    // const validateForm = () => {
-    //     const emailRegex = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/
-    //     const phoneRegex = /^[\+]{0,1}380([0-9]{9})$/
-    //     setFails({
-    //         name: name.length < 2 || name.length > 60
-    //             ? 'Wrong name (>2, <60)'
-    //             : '',
-    //         email: emailRegex.test(email)
-    //             ? ''
-    //             : 'Wrong email',
-    //         phone: phoneRegex.test(phone)
-    //             ? ''
-    //             : 'Wrong number',
-    //         photo: photo != null && !photo.type.startsWith('image/')
-    //             ? 'Wrong type'
-    //             : photo && photo.size > 5 * 1024 * 1024
-    //                 ? 'Size > 5MB'
-    //                 : '',
-    //     });
-    // };
-
     useEffect(() => {
         setIsFiled(
             name.length != 0
@@ -98,13 +103,11 @@ const FormSection = () => {
     }, [name, email, phone, positionId, photo]);
 
     useEffect(() => {
-
-    }, [fails])
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        // validateForm()
+        for (const fail in fails) {
+            if (fail.length == 0) return;
+        }
         if (photo == null) return
+
         const formData = new FormData();
         formData.append("name", name);
         formData.append("email", email);
@@ -112,10 +115,8 @@ const FormSection = () => {
         formData.append("position_id", positionId.toString());
         formData.append("photo", photo);
 
-
         const response = postQuery(token, formData)
         response.then(resp => {
-            console.warn(resp)
             if (resp.success)
                 setSuccessMsg(resp.message)
             else if (resp?.fails)
@@ -123,10 +124,8 @@ const FormSection = () => {
             else
                 console.error(resp.message)
         })
-    };
+    }, [fails])
 
-
-    // console.log(fails)
     return (
         <section className={"form-section container"}>
             {
@@ -141,7 +140,7 @@ const FormSection = () => {
                         <h1>Working with POST request</h1>
                         <form onSubmit={handleSubmit} className={"form"}>
                             <div className={"form_text form_fail"}>
-                                <div className={"form_text-label"}>Name</div>
+                                {!!name.length && <div className={"form_text-label"}>Name</div>}
                                 <input style={fails.name ? failStyleBorder : {}} type="text" placeholder="Name" value={name}
                                        onChange={handleNameChange}/>
                                 <div style={fails.name ? failStyleText : {}}
@@ -149,6 +148,7 @@ const FormSection = () => {
                             </div>
 
                             <div className={"form_text"}>
+                                {!!email.length && <div className={"form_text-label"}>Email</div>}
                                 <input style={fails.email ? failStyleBorder : {}} type="text" placeholder="Email"
                                        value={email}
                                        onChange={handleEmailChange}/>
@@ -157,6 +157,7 @@ const FormSection = () => {
                             </div>
 
                             <div className={"form_text"}>
+                                {!!phone.length && <div className={"form_text-label"}>Phone</div>}
                                 <input style={fails.phone ? failStyleBorder : {}} type="text" placeholder="Phone"
                                        value={phone}
                                        onChange={handlePhoneChange}/>
@@ -184,7 +185,7 @@ const FormSection = () => {
                                     <div
                                         style={fails.photo ? failStyleBorder : {}}>
                                         {photo == null ? "Upload your photo" :
-                                            <span style={{color:"black"}}>{photo.name}</span>}
+                                            <span style={{color: "black"}}>{photo.name}</span>}
                                     </div>
                                 </label>
                                 <input id="file-input" type="file" accept="image/jpeg, image/jpg"

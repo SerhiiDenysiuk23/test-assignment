@@ -2,6 +2,8 @@
   position: relative;
   max-width: 1170px;
   margin: auto;
+  height: 650px;
+  background-position: center;
 
   &_content{
     position: absolute;
@@ -17,5 +19,11 @@
       text-align: center;
       margin: 21px 0 32px 0;
     }
+  }
+}
+
+@media screen and (max-width: 1020px) {
+  .banner{
+    height: 500px;
   }
 }

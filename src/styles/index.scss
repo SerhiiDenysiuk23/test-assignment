@@ -37,10 +37,26 @@ h1{
 }
 
 .container{
-  margin: auto;
-  width: 90%;
+  margin: 0 60px;
+  width: auto;
   max-width: 1170px;
 }
+@media screen and (min-width: 1285px){
+  .container{
+    margin: auto;
+  }
+}
+@media screen and (max-width: 1020px){
+  .container{
+    margin: 0 32px;
+  }
+}
+@media screen and (max-width: 672px){
+  .container{
+    margin: 0 16px;
+  }
+}
+
 
 .button{
   background: #F4E041;
@@ -49,6 +65,7 @@ h1{
   border-radius: 80px;
   min-width: 100px;
   text-align: center;
+  cursor: pointer;
   &:hover{
     background: #FFE302;
   }

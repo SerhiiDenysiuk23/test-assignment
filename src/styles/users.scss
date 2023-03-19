@@ -6,7 +6,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 29px;
     grid-row-gap: 29px;
   }
@@ -16,9 +16,16 @@
   background: #FFFFFF;
   padding: 20px;
   display: inline-block;
-  width: 100%;
+  min-width: 282px;
   box-sizing: border-box;
   text-align: center;
+  *{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 26px;
+    width: 100%;
+  }
   &_photo{
     width: 70px;
     height: 70px;
@@ -26,14 +33,26 @@
     display: inline-block;
     border-radius: 50%;
   }
-  *{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    line-height: 26px;
-  }
 
   &_name{
     margin: 20px 0;
+  }
+}
+
+@media screen and (max-width: 1020px){
+  .users {
+    .user-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(3, 1fr);
+    }
+  }
+}
+
+@media screen and (max-width: 672px){
+  .users {
+    .user-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(6, 1fr);
+    }
   }
 }

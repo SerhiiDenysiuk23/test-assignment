@@ -1,6 +1,16 @@
 .form-section{
   margin-top: 140px;
   margin-bottom: 100px;
+
+  .success-register{
+    height: 290px;
+    margin: 50px auto;
+    width: fit-content;
+    img{
+      height: 100%;
+      width: auto;
+    }
+  }
 }
 
 .form{
@@ -9,16 +19,41 @@
   align-items: center;
   width: 360px;
   margin: auto;
+
   &_text{
     margin-top: 50px;
     display: block;
     width: 100%;
     height: 54px;
-    padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
+    position: relative;
+    input{
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+      border-radius: 4px;
+      background: #F8F8F8;
+    }
+  }
+
+  &_text-label{
+    position: absolute;
+    top: -1em;
+    left: 10px;
+    color: #7E7E7E;
+    font-size: 12px;
+    background: #F8F8F8;
+    padding: 4px 2px;
+  }
+
+  &_message{
+    position: absolute;
+    bottom: -1.5em;
+    left: 10px;
+    color: #7E7E7E;
+    font-size: 12px;
   }
 
   &_radio-group{
@@ -28,16 +63,72 @@
     align-items: start;
     margin-top: 43px;
     span{
-      margin-bottom: 14px;
+      margin-bottom: 7px;
     }
   }
 
-  &_radio{
-    margin-right: 10px;
+  &_radio {
+    margin: 7px 0 ;
+
+    input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      + .form_radio-label {
+        cursor: pointer;
+        &:before {
+          content: '';
+          border-radius: 50%;
+          border: 1px solid #D0CFCF;
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          margin-right: 12px;
+          vertical-align: top;
+        }
+      }
+      &:checked {
+        + .form_radio-label {
+          &:before {
+            background: #00BDD3;
+            box-shadow: inset 0 0 0 5px #F8F8F8;
+            border-color: #00BDD3;
+          }
+        }
+      }
+    }
   }
 
-  &_file{
+  &_file-wrapper{
+    position: relative;
     margin: 50px 0;
-    border: 1px solid #D0CFCF;
+    width: 100%;
+    input[type="file"]{
+      display: none;
+    }
+  }
+  &_file-label{
+    display: flex;
+    width: 100%;
+    height: 54px;
+    cursor: pointer;
+    div {
+      height: 100%;
+      padding: 14px 15px;
+      white-space: nowrap;
+      &:nth-child(1) {
+        border: 1px solid black;
+        border-radius: 4px 0 0 4px;
+      }
+      &:nth-child(2){
+        color: #7E7E7E;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        border: 1px solid #D0CFCF;
+        border-left: none;
+        width: 100%;
+        border-radius: 0 4px 4px 0;
+      }
+    }
   }
 }

@@ -1,14 +1,23 @@
-header{
+header {
   width: 100%;
   background: #FFFFFF;
 }
 
-.navbar{
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 60px;
-  .button:nth-child(1){
-    margin-right: 10px;
+  ul {
+    a {
+      max-width: 100px;
+      display: inline-block;
+
+      &:nth-child(1) {
+        margin-right: 10px;
+        //display: none;
+      }
+    }
   }
+
 }

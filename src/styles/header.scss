@@ -3,6 +3,11 @@ header {
   background: #FFFFFF;
 }
 
+#logo{
+  min-width: 104px;
+  width: 104px;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -18,5 +23,25 @@ header {
       }
     }
   }
+}
 
+@media screen and (max-width: 370px) {
+  #logo{
+    margin-right: 1%;
+  }
+  .navbar {
+    nav{
+      width: 100%;
+    }
+    ul {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      a {
+        &:nth-child(1) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
 }

@@ -7,10 +7,10 @@ const Header = () => {
                 <div id={"logo"}><a href="#"><img src="/logo.png" alt="logo"/></a></div>
                 <nav>
                     <ul>
-                        <a href="#">
+                        <a href="#users">
                             <li className={"button"}>Users</li>
                         </a>
-                        <a href="#">
+                        <a href="#signup">
                             <li className={"button"}>Sign up</li>
                         </a>
                     </ul>

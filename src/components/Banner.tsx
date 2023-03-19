@@ -10,7 +10,7 @@ const Banner = () => {
                     understanding of User design thinking as they'll be building web interfaces with accessibility in
                     mind.
                     They should also be excited to learn, as the world of Front-End Development keeps evolving.</p>
-                <a href="#">
+                <a href="#signup">
                     <div className={"button"}>Sign up</div>
                 </a>
             </div>

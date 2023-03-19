@@ -1,4 +1,4 @@
-import React, {CSSProperties, useEffect, useState} from 'react';
+import React, {CSSProperties, FC, useEffect, useState} from 'react';
 import {getQuery, postQuery} from "../api/core";
 
 interface Messages {
@@ -20,7 +20,7 @@ const failsInit: Messages = {
 const failStyleBorder: CSSProperties = {borderColor: "#CB3D40", borderWidth: 2}
 const failStyleText: CSSProperties = {color: "#CB3D40"}
 
-const FormSection = () => {
+const FormSection: FC<{pickFunc(): void}> = ({pickFunc}) => {
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [phone, setPhone] = useState<string>('');
@@ -117,8 +117,10 @@ const FormSection = () => {
 
         const response = postQuery(token, formData)
         response.then(resp => {
-            if (resp.success)
+            if (resp.success) {
                 setSuccessMsg(resp.message)
+                pickFunc()
+            }
             else if (resp?.fails)
                 setFails({...failsInit, ...resp.fails})
             else
@@ -127,7 +129,7 @@ const FormSection = () => {
     }, [fails])
 
     return (
-        <section className={"form-section container"}>
+        <section id={"signup"} className={"form-section container"}>
             {
                 successMsg.length
                     ? <>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Banner = () => {
     return (
-        <section style={{backgroundImage: "url(./banner.png)"}} className={"banner"}>
+        <section style={{backgroundImage: "url(./banner.webp)"}} className={"banner"}>
             <div className="banner_content">
                 <h1>Test assignment for front-end developer</h1>
                 <p>What defines a good front-end developer is one that has skilled knowledge of HTML, CSS, JS with a
